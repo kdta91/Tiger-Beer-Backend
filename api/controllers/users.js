@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-exports.user_create_user = (req, res, next) => {
+exports.create_user = (req, res, next) => {
     User.find({
             username: req.body.username
         })
@@ -45,7 +45,7 @@ exports.user_create_user = (req, res, next) => {
         });
 };
 
-exports.user_login = (req, res, next) => {
+exports.login = (req, res, next) => {
     User.find({
             username: req.body.username
         })
@@ -92,24 +92,24 @@ exports.user_login = (req, res, next) => {
         });
 };
 
-exports.user_get_all_users = (req, res, next) => {
+exports.get_all_users = (req, res, next) => {
     // console.log(req.userData.userType);
     // const userData = parseInt(req.userData.userType);
     // if (userData === 1 || userData === 2) {
     User.find()
-        .select('_id username email password createdAt updatedAt')
-        // .populate('userType', 'userType')
+        .select('_id username email password userType createdAt updatedAt')
+        .populate('userType', 'userType')
         .exec()
         .then((results) => {
             res.status(200).json({
                 count: results.length,
-                orders: results.map((result) => {
+                users: results.map((result) => {
                     return {
                         _id: result._id,
                         username: result.username,
                         email: result.email,
                         password: result.password,
-                        created: result.created,
+                        userType: result.userType,
                         createdAt: result.createdAt,
                         updatedAt: result.updatedAt,
                         request: {
@@ -132,11 +132,12 @@ exports.user_get_all_users = (req, res, next) => {
     // }
 };
 
-exports.user_get_user = (req, res, next) => {
+exports.get_user = (req, res, next) => {
     const id = req.params.userId;
 
     User.findById(id)
-        .select('_id username email password')
+        .select('_id username email password userType')
+        .populate('userType', 'userType')
         .exec()
         .then((result) => {
             if (result) {
@@ -154,7 +155,7 @@ exports.user_get_user = (req, res, next) => {
         });
 };
 
-exports.user_update_user = (req, res, next) => {
+exports.update_user = (req, res, next) => {
     const id = req.params.userId;
     const updateData = {};
 
@@ -180,7 +181,7 @@ exports.user_update_user = (req, res, next) => {
         });
 };
 
-exports.user_delete_user = (req, res, next) => {
+exports.delete_user = (req, res, next) => {
     const id = req.params.userId;
 
     User.remove({

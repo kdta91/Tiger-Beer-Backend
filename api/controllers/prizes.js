@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Prize = require('../models/prize');
 
-exports.prize_create_prize = (req, res, next) => {
+exports.create_prize = (req, res, next) => {
     Prize.find({
             prizeName: req.body.prizeName
         })
@@ -34,7 +34,7 @@ exports.prize_create_prize = (req, res, next) => {
         });
 };
 
-exports.prize_get_all_prizes = (req, res, next) => {
+exports.get_all_prizes = (req, res, next) => {
     Prize.find()
         .select('_id prizeName prizeImage prizeFrame createdAt updatedAt')
         // .populate()
@@ -65,7 +65,7 @@ exports.prize_get_all_prizes = (req, res, next) => {
         });
 };
 
-exports.prize_get_prize = (req, res, next) => {
+exports.get_prize = (req, res, next) => {
     const id = req.params.prizeId;
 
     Prize.findById(id)
@@ -87,7 +87,7 @@ exports.prize_get_prize = (req, res, next) => {
         });
 };
 
-exports.prize_update_prize = (req, res, next) => {
+exports.update_prize = (req, res, next) => {
     const id = req.params.prizeId;
     const updateData = {};
 
@@ -113,7 +113,7 @@ exports.prize_update_prize = (req, res, next) => {
         });
 };
 
-exports.prize_delete_prize = (req, res, next) => {
+exports.delete_prize = (req, res, next) => {
     const id = req.params.prizeId;
 
     Prize.remove({

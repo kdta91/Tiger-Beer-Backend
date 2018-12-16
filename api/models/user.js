@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
         required: true
     },
     userType: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'UserType',
         required: true
     },

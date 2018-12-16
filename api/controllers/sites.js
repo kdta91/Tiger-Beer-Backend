@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Site = require('../models/site');
 
-exports.site_create_site = (req, res, next) => {
+exports.create_site = (req, res, next) => {
     Site.find({
             siteName: req.body.siteName
         })
@@ -35,7 +35,7 @@ exports.site_create_site = (req, res, next) => {
         });
 };
 
-exports.site_get_all_sites = (req, res, next) => {
+exports.get_all_sites = (req, res, next) => {
     Site.find()
         .select('_id siteName geofenceLatLong siteStartDate siteEndDate createdAt updatedAt')
         // .populate()
@@ -67,7 +67,7 @@ exports.site_get_all_sites = (req, res, next) => {
         });
 };
 
-exports.site_get_site = (req, res, next) => {
+exports.get_site = (req, res, next) => {
     const id = req.params.siteId;
 
     Site.findById(id)
@@ -89,7 +89,7 @@ exports.site_get_site = (req, res, next) => {
         });
 };
 
-exports.site_update_site = (req, res, next) => {
+exports.update_site = (req, res, next) => {
     const id = req.params.siteId;
     const updateData = {};
 
@@ -115,7 +115,7 @@ exports.site_update_site = (req, res, next) => {
         });
 };
 
-exports.site_delete_site = (req, res, next) => {
+exports.delete_site = (req, res, next) => {
     const id = req.params.siteId;
 
     Site.remove({

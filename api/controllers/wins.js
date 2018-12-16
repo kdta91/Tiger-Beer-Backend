@@ -1,22 +1,18 @@
 const mongoose = require('mongoose');
-const SitePrizeAllocation = require('../models/site-prize-allocation');
+const Win = require('../models/win');
 
-exports.create_site_prize_allocation = (req, res, next) => {
-    const sitePrizeAllocation = new SitePrizeAllocation({
+exports.create_win = (req, res, next) => {
+    const win = new Win({
         _id: new mongoose.Types.ObjectId,
-        prizeId: req.body.prizeId,
         siteId: req.body.siteId,
-        rank: req.body.rank,
-        quantityAllocated: req.body.quantityAllocated,
-        quantityLeft: req.body.quantityLeft
+        sitePrizeId: req.body.sitePrizeId,
+        winSequenceNumberPerSite: req.body.winSequenceNumberPerSite
     });
 
-    console.log(sitePrizeAllocation);
-
-    sitePrizeAllocation.save()
+    win.save()
         .then((result) => {
             res.status(201).json({
-                message: 'Site prize allocation successfully created!'
+                message: 'Win successfully created!'
             });
         })
         .catch((error) => {
@@ -26,27 +22,26 @@ exports.create_site_prize_allocation = (req, res, next) => {
         });
 };
 
-exports.get_all_site_prize_allocation = (req, res, next) => {
-    SitePrizeAllocation.find()
-        .select('_id prizeId siteId rank quantityAllocated quantityLeft createdAt updatedAt')
-        .populate('prizeId siteId', 'prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
+exports.get_all_wins = (req, res, next) => {
+    Win.find()
+        .select('_id siteId sitePrizeId winSequenceNumberPerSite winDate createdAt updatedAt')
+        .populate('siteId sitePrizeId', 'siteName prizeName')
         .exec()
         .then((results) => {
             res.status(200).json({
                 count: results.length,
-                sitePrizeAllocations: results.map((result) => {
+                wins: results.map((result) => {
                     return {
                         _id: result._id,
-                        prizeId: result.prizeId,
                         siteId: result.siteId,
-                        rank: result.rank,
-                        quantityAllocated: result.quantityAllocated,
-                        quantityLeft: result.quantityLeft,
+                        sitePrizeId: result.sitePrizeId,
+                        winSequenceNumberPerSite: result.winSequenceNumberPerSite,
+                        winDate: result.winDate,
                         createdAt: result.createdAt,
                         updatedAt: result.updatedAt,
                         request: {
                             type: 'GET',
-                            url: 'http://localhost:3000/site-prize-allocation/' + result._id
+                            url: 'http://localhost:3000/win/' + result._id
                         }
                     }
                 })
@@ -59,15 +54,13 @@ exports.get_all_site_prize_allocation = (req, res, next) => {
         });
 };
 
-exports.get_site_prize_allocation = (req, res, next) => {
-    const id = req.params.sitePrizeId;
+exports.get_win = (req, res, next) => {
+    const id = req.params.winId;
 
-    SitePrizeAllocation.findById(id)
-        .select('_id prizeId siteId rank quantityAllocated quantityLeft createdAt updatedAt')
-        .populate('prizeId siteId', 'prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
-        .exec()
+    Win.findById(id)
+        .select('_id siteId sitePrizeId winSequenceNumberPerSite winDate createdAt updatedAt')
+        .populate('siteId sitePrizeId', 'siteName prizeName').exec()
         .then((result) => {
-            // console.log(result);
             if (result) {
                 res.status(200).json(result);
             } else {
@@ -83,16 +76,15 @@ exports.get_site_prize_allocation = (req, res, next) => {
         });
 };
 
-exports.update_site_prize_allocation = (req, res, next) => {
-    const id = req.params.sitePrizeId;
+exports.update_win = (req, res, next) => {
+    const id = req.params.winId;
     const updateData = {};
-    console.log("ID " +id);
 
     for (const data of req.body) {
         updateData[data.key] = data.value;
     }
 
-    SitePrizeAllocation.update({
+    Win.update({
             _id: id
         }, {
             $set: updateData
@@ -100,7 +92,7 @@ exports.update_site_prize_allocation = (req, res, next) => {
         .exec()
         .then((result) => {
             res.status(200).json({
-                message: 'Site prize allocation successfully updated!'
+                message: 'Win successfully updated!'
             });
         })
         .catch((error) => {
@@ -110,16 +102,16 @@ exports.update_site_prize_allocation = (req, res, next) => {
         });
 };
 
-exports.delete_site_prize_allocation = (req, res, next) => {
-    const id = req.params.sitePrizeId;
+exports.delete_win = (req, res, next) => {
+    const id = req.params.winId;
 
-    SitePrizeAllocation.remove({
+    Win.remove({
             _id: id
         })
         .exec()
         .then((result) => {
             res.status(200).json({
-                message: 'Site prize allocation successfully removed!'
+                message: 'Win successfully removed!'
             });
         })
         .catch((error) => {

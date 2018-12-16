@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const UserType = require('../models/user-type');
 
-exports.user_create_user_type = (req, res, next) => {
+exports.create_user_type = (req, res, next) => {
     const userType = new UserType({
         _id: new mongoose.Types.ObjectId,
         typeId: req.body.typeId,
@@ -22,7 +22,7 @@ exports.user_create_user_type = (req, res, next) => {
         });
 };
 
-exports.user_get_all_user_types = (req, res, next) => {
+exports.get_all_user_types = (req, res, next) => {
     UserType.find()
         .exec()
         .then((docs) => {
@@ -44,7 +44,7 @@ exports.user_get_all_user_types = (req, res, next) => {
         });
 };
 
-exports.user_update_user_type = (req, res, next) => {
+exports.update_user_type = (req, res, next) => {
     const id = req.params.userTypeId;
     const updateOps = {};
 
