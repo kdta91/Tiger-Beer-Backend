@@ -10,6 +10,7 @@ const siteRoutes = require('./api/routes/sites');
 const prizeRoutes = require('./api/routes/prizes');
 const sitePrizeAllocationRoutes = require('./api/routes/site-prizes-allocation');
 const winRoutes = require('./api/routes/wins');
+const getWinRoutes = require('./api/routes/client/win-results');
 
 mongoose.connect('mongodb://tiger-beer:' + process.env.MONGO_ATLAS_PW + '@tiger-beer-shard-00-00-sryy6.mongodb.net:27017,tiger-beer-shard-00-01-sryy6.mongodb.net:27017,tiger-beer-shard-00-02-sryy6.mongodb.net:27017/test?ssl=true&replicaSet=tiger-beer-shard-0&authSource=admin&retryWrites=true', {
     useNewUrlParser: true
@@ -41,9 +42,10 @@ app.use('/site', siteRoutes);
 app.use('/prize', prizeRoutes);
 app.use('/site-prize-allocation', sitePrizeAllocationRoutes);
 app.use('/win', winRoutes);
+app.use('/get-win', getWinRoutes);
 
 app.use((req, res, next) => {
-    const error = new Error('Not found');
+    const error = new Error('Page not found!');
     error.status = 404;
     next(error);
 });

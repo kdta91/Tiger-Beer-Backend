@@ -8,10 +8,9 @@ exports.create_site_prize_allocation = (req, res, next) => {
         siteId: req.body.siteId,
         rank: req.body.rank,
         quantityAllocated: req.body.quantityAllocated,
-        quantityLeft: req.body.quantityLeft
+        quantityLeft: req.body.quantityLeft,
+        odds: req.body.odds
     });
-
-    console.log(sitePrizeAllocation);
 
     sitePrizeAllocation.save()
         .then((result) => {
@@ -28,7 +27,7 @@ exports.create_site_prize_allocation = (req, res, next) => {
 
 exports.get_all_site_prize_allocation = (req, res, next) => {
     SitePrizeAllocation.find()
-        .select('_id prizeId siteId rank quantityAllocated quantityLeft createdAt updatedAt')
+        .select('_id prizeId siteId rank quantityAllocated quantityLeft odds createdAt updatedAt')
         .populate('prizeId siteId', 'prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
         .exec()
         .then((results) => {
@@ -42,6 +41,7 @@ exports.get_all_site_prize_allocation = (req, res, next) => {
                         rank: result.rank,
                         quantityAllocated: result.quantityAllocated,
                         quantityLeft: result.quantityLeft,
+                        odds: result.odds,
                         createdAt: result.createdAt,
                         updatedAt: result.updatedAt,
                         request: {
@@ -63,7 +63,7 @@ exports.get_site_prize_allocation = (req, res, next) => {
     const id = req.params.sitePrizeId;
 
     SitePrizeAllocation.findById(id)
-        .select('_id prizeId siteId rank quantityAllocated quantityLeft createdAt updatedAt')
+        .select('_id prizeId siteId rank quantityAllocated quantityLeft odds createdAt updatedAt')
         .populate('prizeId siteId', 'prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
         .exec()
         .then((result) => {
@@ -86,7 +86,6 @@ exports.get_site_prize_allocation = (req, res, next) => {
 exports.update_site_prize_allocation = (req, res, next) => {
     const id = req.params.sitePrizeId;
     const updateData = {};
-    console.log("ID " +id);
 
     for (const data of req.body) {
         updateData[data.key] = data.value;

@@ -14,15 +14,18 @@ const sitePrizeAllocationSchema = mongoose.Schema({
     },
     rank: {
         type: Number,
-        required: true
+        // required: true
     },
     quantityAllocated: {
         type: Number,
-        required: true
+        // required: true
     },
     quantityLeft: {
         type: Number,
-        required: true
+        // required: true
+    },
+    odds: {
+        type: Number
     },
     createdAt: {
         type: Date,
