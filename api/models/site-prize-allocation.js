@@ -15,6 +15,9 @@ const sitePrizeAllocationSchema = mongoose.Schema({
     rank: {
         type: Number,
     },
+    prizeValue: {
+        type: Number,
+    },
     quantityAllocated: {
         type: Number,
     },
