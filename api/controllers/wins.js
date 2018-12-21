@@ -4,6 +4,7 @@ const Win = require('../models/win');
 exports.create_win = (req, res, next) => {
     const win = new Win({
         _id: new mongoose.Types.ObjectId,
+        winSessionId: req.body.winSessionId,
         siteId: req.body.siteId,
         sitePrizeId: req.body.sitePrizeId,
         winSequenceNumberPerSite: req.body.winSequenceNumberPerSite
@@ -12,7 +13,7 @@ exports.create_win = (req, res, next) => {
     win.save()
         .then((result) => {
             res.status(201).json({
-                message: 'Win successfully created!'
+                message: 'Win result successfully logged!'
             });
         })
         .catch((error) => {
@@ -24,7 +25,7 @@ exports.create_win = (req, res, next) => {
 
 exports.get_all_wins = (req, res, next) => {
     Win.find()
-        .select('_id siteId sitePrizeId winSequenceNumberPerSite winDate createdAt updatedAt')
+        .select('_id winSessionId siteId sitePrizeId winSequenceNumberPerSite createdAt updatedAt')
         .populate('siteId sitePrizeId', 'siteName prizeName')
         .exec()
         .then((results) => {
@@ -33,10 +34,10 @@ exports.get_all_wins = (req, res, next) => {
                 wins: results.map((result) => {
                     return {
                         _id: result._id,
+                        winSessionId: result.winSessionId,
                         siteId: result.siteId,
                         sitePrizeId: result.sitePrizeId,
                         winSequenceNumberPerSite: result.winSequenceNumberPerSite,
-                        winDate: result.winDate,
                         createdAt: result.createdAt,
                         updatedAt: result.updatedAt,
                         request: {
@@ -58,8 +59,9 @@ exports.get_win = (req, res, next) => {
     const id = req.params.winId;
 
     Win.findById(id)
-        .select('_id siteId sitePrizeId winSequenceNumberPerSite winDate createdAt updatedAt')
-        .populate('siteId sitePrizeId', 'siteName prizeName').exec()
+        .select('_id winSessionId siteId sitePrizeId winSequenceNumberPerSite createdAt updatedAt')
+        .populate('siteId sitePrizeId', 'siteName prizeName')
+        .exec()
         .then((result) => {
             if (result) {
                 res.status(200).json(result);
@@ -92,7 +94,7 @@ exports.update_win = (req, res, next) => {
         .exec()
         .then((result) => {
             res.status(200).json({
-                message: 'Win successfully updated!'
+                message: 'Win result successfully updated!'
             });
         })
         .catch((error) => {
@@ -111,7 +113,7 @@ exports.delete_win = (req, res, next) => {
         .exec()
         .then((result) => {
             res.status(200).json({
-                message: 'Win successfully removed!'
+                message: 'Win result successfully removed!'
             });
         })
         .catch((error) => {

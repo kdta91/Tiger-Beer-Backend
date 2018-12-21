@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const winSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    winSessionId: {
+        type: String,
+        required: true
+    },
     siteId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site',
@@ -9,14 +13,10 @@ const winSchema = mongoose.Schema({
     },
     sitePrizeId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'SitePrizeAllocation',
+        ref: 'Prize',
         required: true
     },
     winSequenceNumberPerSite: {
-        type: Number,
-        required: true
-    },
-    winDate: {
         type: Date,
         default: Date.now
     },
@@ -31,9 +31,9 @@ const winSchema = mongoose.Schema({
 });
 
 winSchema.pre('save', (next) => {
-    if (!this.winDate && !this.createdAt) {
+    if (!this.winSequenceNumberPerSite && !this.createdAt) {
         let now = new Date();
-        this.winDate = now;
+        this.winSequenceNumberPerSite = now;
         this.createdAt = now;
     }
     next();

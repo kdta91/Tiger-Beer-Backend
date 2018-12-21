@@ -37,7 +37,6 @@ exports.create_prize = (req, res, next) => {
 exports.get_all_prizes = (req, res, next) => {
     Prize.find()
         .select('_id prizeName prizeImage prizeFrame createdAt updatedAt')
-        // .populate()
         .exec()
         .then((results) => {
             res.status(200).json({

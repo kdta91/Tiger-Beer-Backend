@@ -9,5 +9,6 @@ router.get('/', SiteController.get_all_sites);
 router.get('/:siteId', SiteController.get_site);
 router.patch('/:siteId', SiteController.update_site);
 router.delete('/:siteId', SiteController.delete_site);
+router.get('/:siteId/status', SiteController.get_site_status);
 
 module.exports = router;

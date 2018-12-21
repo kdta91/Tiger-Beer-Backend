@@ -67,7 +67,6 @@ exports.get_site_prize_allocation = (req, res, next) => {
         .populate('prizeId siteId', 'prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
         .exec()
         .then((result) => {
-            // console.log(result);
             if (result) {
                 res.status(200).json(result);
             } else {
