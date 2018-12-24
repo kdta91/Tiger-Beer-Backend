@@ -49,6 +49,7 @@ exports.login = (req, res, next) => {
     User.find({
             username: req.body.username
         })
+        .populate('userType')
         .exec()
         .then((user) => {
             if (user.length < 1) {
@@ -76,7 +77,12 @@ exports.login = (req, res, next) => {
 
                     return res.status(200).json({
                         message: 'Authentication successful!',
-                        token: token
+                        token: token,
+                        user: {
+                            email: user[0].email,
+                            username: user[0].username,
+                            userType: user[0].userType.typeId
+                        }
                     });
                 }
 

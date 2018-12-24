@@ -146,3 +146,7 @@ exports.get_win_result = (req, res, next) => {
             });
         });
 };
+
+exports.check_winner = (req, res, next) => {
+
+};
