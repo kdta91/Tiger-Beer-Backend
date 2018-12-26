@@ -36,7 +36,7 @@ exports.get_win_result = (req, res, next) => {
             minRange = maxRange;
         }
 
-        console.log(prizeResult);
+        // console.log(prizeResult);
 
         return prizeResult.filter((prize) => (luckyNumber >= prize.range.min && luckyNumber <= prize.range.max));
     };
@@ -101,37 +101,59 @@ exports.get_win_result = (req, res, next) => {
         .then((prize) => {
             const win = new Win({
                 _id: new mongoose.Types.ObjectId,
-                winSessionId: 'fb2e77d.47a0479900504cb3ab4a1f626d174d2d',
+                winSessionId: req.params.winSessionId,
                 siteId: req.params.siteId,
                 sitePrizeId: prize._id
             });
 
-            return win.save()
-                .then((saved) => {
-                    return SitePrizeAllocation.findOneAndUpdate({
-                            siteId: saved.siteId,
-                            prizeId: saved.sitePrizeId
-                        }, {
-                            $inc: {
-                                quantityLeft: -1
-                            }
-                        })
-                        .exec()
-                        .then((sitePrizeAllocation) => {
-                            return sitePrizeAllocation;
-                        })
-                        .catch((error) => {
-                            return error;
-                        });
+            return Win.find({
+                    'winSessionId': req.params.winSessionId
+                })
+                .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
+                .exec()
+                .then((won) => {
+                    if (won.length > 0) {
+                        return won[0];
+                    } else {
+                        return win.save()
+                            .then((saved) => {
+                                return SitePrizeAllocation.findOneAndUpdate({
+                                        siteId: saved.siteId,
+                                        prizeId: saved.sitePrizeId
+                                    }, {
+                                        $inc: {
+                                            quantityLeft: -1
+                                        }
+                                    })
+                                    .exec()
+                                    .then((sitePrizeAllocation) => {
+                                        return Win.findById(saved._id)
+                                            .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
+                                            .exec()
+                                            .then((found) => {
+                                                return found;
+                                            })
+                                            .catch((error) => {
+                                                return error;
+                                            })
+                                    })
+                                    .catch((error) => {
+                                        return error;
+                                    });
+                            })
+                            .catch((error) => {
+                                return error;
+                            });
+                    }
                 })
                 .catch((error) => {
                     return error;
-                });
+                })
         })
         .then((result) => {
             if (result) {
                 res.status(200).json({
-                    prizeId: result.prizeId
+                    prizeId: result.sitePrizeId.prizeType
                 });
             } else {
                 res.status(404).json({

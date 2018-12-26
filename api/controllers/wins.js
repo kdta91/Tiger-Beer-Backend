@@ -26,7 +26,7 @@ exports.create_win = (req, res, next) => {
 exports.get_all_wins = (req, res, next) => {
     Win.find()
         .select('_id winSessionId siteId sitePrizeId winSequenceNumberPerSite createdAt updatedAt')
-        .populate('siteId sitePrizeId', 'siteName prizeName')
+        .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
         .exec()
         .then((results) => {
             res.status(200).json({
@@ -60,7 +60,7 @@ exports.get_win = (req, res, next) => {
 
     Win.findById(id)
         .select('_id winSessionId siteId sitePrizeId winSequenceNumberPerSite createdAt updatedAt')
-        .populate('siteId sitePrizeId', 'siteName prizeName')
+        .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
         .exec()
         .then((result) => {
             if (result) {

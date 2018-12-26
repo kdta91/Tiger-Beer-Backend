@@ -58,6 +58,7 @@ exports.get_all_sites = (req, res, next) => {
                             //     type: 'GET',
                             //     url: 'http://localhost:3000/site/' + result._id
                             // }
+                            siteID: result._id,
                             siteName: result.siteName
                         }
                     })

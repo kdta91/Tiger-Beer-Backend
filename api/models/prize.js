@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const prizeSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    prizeType: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
     prizeName: {
         type: String,
         required: true,

@@ -14,6 +14,7 @@ exports.create_prize = (req, res, next) => {
             } else {
                 const prize = new Prize({
                     _id: new mongoose.Types.ObjectId,
+                    prizeType: req.body.prizeType,
                     prizeName: req.body.prizeName,
                     prizeImage: req.body.prizeImage,
                     prizeFrame: req.body.prizeFrame
@@ -36,7 +37,7 @@ exports.create_prize = (req, res, next) => {
 
 exports.get_all_prizes = (req, res, next) => {
     Prize.find()
-        .select('_id prizeName prizeImage prizeFrame createdAt updatedAt')
+        .select('_id prizeType prizeName prizeImage prizeFrame createdAt updatedAt')
         .exec()
         .then((results) => {
             res.status(200).json({
@@ -44,6 +45,7 @@ exports.get_all_prizes = (req, res, next) => {
                 orders: results.map((result) => {
                     return {
                         _id: result._id,
+                        prizeType: result.prizeType,
                         prizeName: result.prizeName,
                         prizeImage: result.prizeImage,
                         prizeFrame: result.prizeFrame,
@@ -68,7 +70,7 @@ exports.get_prize = (req, res, next) => {
     const id = req.params.prizeId;
 
     Prize.findById(id)
-        .select('_id prizeName prizeImage prizeFrame createdAt updatedAt')
+        .select('_id prizeType prizeName prizeImage prizeFrame createdAt updatedAt')
         .exec()
         .then((result) => {
             if (result) {

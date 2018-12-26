@@ -4,7 +4,8 @@ const winSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     winSessionId: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     siteId: {
         type: mongoose.Schema.Types.ObjectId,

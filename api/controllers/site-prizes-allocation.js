@@ -28,7 +28,7 @@ exports.create_site_prize_allocation = (req, res, next) => {
 exports.get_all_site_prize_allocation = (req, res, next) => {
     SitePrizeAllocation.find()
         .select('_id prizeId siteId rank quantityAllocated quantityLeft odds createdAt updatedAt')
-        .populate('prizeId siteId', 'prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
+        .populate('prizeId siteId', 'prizeType prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
         .exec()
         .then((results) => {
             res.status(200).json({
@@ -60,11 +60,36 @@ exports.get_all_site_prize_allocation = (req, res, next) => {
 };
 
 exports.get_site_prize_allocation = (req, res, next) => {
-    const id = req.params.sitePrizeId;
+    const id = req.params.sitePrizeAllocationId;
 
     SitePrizeAllocation.findById(id)
         .select('_id prizeId siteId rank quantityAllocated quantityLeft odds createdAt updatedAt')
-        .populate('prizeId siteId', 'prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
+        .populate('prizeId siteId', 'prizeType prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
+        .exec()
+        .then((result) => {
+            if (result) {
+                res.status(200).json(result);
+            } else {
+                res.status(404).json({
+                    message: 'No valid entry found!'
+                });
+            }
+        })
+        .catch((error) => {
+            res.status(500).json({
+                error: error
+            });
+        });
+};
+
+exports.get_site_prize_allocation_by_site = (req, res, next) => {
+    const siteId = req.params.siteId;
+
+    SitePrizeAllocation.find({
+            siteId: siteId
+        })
+        .select('_id prizeId siteId rank quantityAllocated quantityLeft odds createdAt updatedAt')
+        .populate('prizeId siteId', 'prizeType prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
         .exec()
         .then((result) => {
             if (result) {
@@ -83,7 +108,7 @@ exports.get_site_prize_allocation = (req, res, next) => {
 };
 
 exports.update_site_prize_allocation = (req, res, next) => {
-    const id = req.params.sitePrizeId;
+    const id = req.params.sitePrizeAllocationId;
     const updateData = {};
 
     for (const data of req.body) {
@@ -109,7 +134,7 @@ exports.update_site_prize_allocation = (req, res, next) => {
 };
 
 exports.delete_site_prize_allocation = (req, res, next) => {
-    const id = req.params.sitePrizeId;
+    const id = req.params.sitePrizeAllocationId;
 
     SitePrizeAllocation.remove({
             _id: id
