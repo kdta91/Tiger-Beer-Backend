@@ -81,13 +81,40 @@ exports.get_win_result = (req, res, next) => {
         })
         .exec()
         .then((allocation) => {
-            // console.log(allocation);
-            // let prize = qtyLeftFormula(allocation)[0];
-            let prize = oddsFormula(allocation)[0];
-            return prize;
+            let hasOdds = allocation.some((alloc) => {
+                return alloc.odds > 0;
+            });
+
+            var prize;
+
+            if (hasOdds) {
+                prize = oddsFormula(allocation)[0];
+            } else {
+                prize = qtyLeftFormula(allocation)[0];
+            }
+
+            if (prize) {
+                return prize;
+            } else {
+                return Win.findOne({
+                        'winSessionId': req.params.winSessionId,
+                        'siteId': req.params.siteId
+                    })
+                    .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
+                    .exec()
+                    .then((foundWin) => {
+                        res.status(200).json({
+                            prizeId: foundWin.sitePrizeId.prizeType
+                        });
+                    })
+                    .catch((error) => {
+                        res.status(500).json({
+                            error: error
+                        });
+                    });
+            }
         })
         .then((result) => {
-            // console.log(result);
             return Prize.findById(result.prizeId)
                 .select('_id')
                 .exec()
@@ -107,7 +134,8 @@ exports.get_win_result = (req, res, next) => {
             });
 
             return Win.find({
-                    'winSessionId': req.params.winSessionId
+                    'winSessionId': req.params.winSessionId,
+                    'siteId': req.params.siteId
                 })
                 .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
                 .exec()
@@ -156,8 +184,7 @@ exports.get_win_result = (req, res, next) => {
                     prizeId: result.sitePrizeId.prizeType
                 });
             } else {
-                res.status(404).json({
-                    error: 404,
+                res.status(200).json({
                     message: 'Something went wrong. Please try again.'
                 })
             }
@@ -167,8 +194,4 @@ exports.get_win_result = (req, res, next) => {
                 error: error
             });
         });
-};
-
-exports.check_winner = (req, res, next) => {
-
 };

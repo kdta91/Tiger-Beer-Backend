@@ -17,6 +17,10 @@ const winSchema = mongoose.Schema({
         ref: 'Prize',
         required: true
     },
+    winChecked: {
+        type: Boolean,
+        default: false
+    },
     winSequenceNumberPerSite: {
         type: Date,
         default: Date.now

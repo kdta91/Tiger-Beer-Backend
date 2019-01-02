@@ -12,7 +12,10 @@ const sitePrizeAllocationRoutes = require('./api/routes/site-prizes-allocation')
 const winRoutes = require('./api/routes/wins');
 const getWinRoutes = require('./api/routes/client/win-results');
 
-mongoose.connect('mongodb://tiger-beer:' + process.env.MONGO_ATLAS_PW + '@tiger-beer-shard-00-00-sryy6.mongodb.net:27017,tiger-beer-shard-00-01-sryy6.mongodb.net:27017,tiger-beer-shard-00-02-sryy6.mongodb.net:27017/test?ssl=true&replicaSet=tiger-beer-shard-0&authSource=admin&retryWrites=true', {
+// const databaseURL = 'mongodb://tiger-beer:' + process.env.MONGO_ATLAS_PW + '@tiger-beer-shard-00-00-sryy6.mongodb.net:27017,tiger-beer-shard-00-01-sryy6.mongodb.net:27017,tiger-beer-shard-00-02-sryy6.mongodb.net:27017/test?ssl=true&replicaSet=tiger-beer-shard-0&authSource=admin&retryWrites=true';
+const databaseURL = 'mongodb://localhost:27017/tiger-beer';
+
+mongoose.connect(databaseURL, {
     useNewUrlParser: true
 });
 

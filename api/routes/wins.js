@@ -9,5 +9,6 @@ router.get('/', WinController.get_all_wins);
 router.get('/:winId', WinController.get_win);
 router.patch('/:winId', WinController.update_win);
 router.delete('/:winId', WinController.delete_win);
+router.get('/:siteId/latest', WinController.get_latest_win);
 
 module.exports = router;

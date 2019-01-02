@@ -85,10 +85,6 @@ exports.login = (req, res, next) => {
                         }
                     });
                 }
-
-                res.status(401).json({
-                    message: 'Authentication failed!'
-                });
             });
         })
         .catch((error) => {
@@ -149,7 +145,7 @@ exports.get_user = (req, res, next) => {
             if (result) {
                 res.status(200).json(result);
             } else {
-                res.status(404).json({
+                res.status(200).json({
                     message: 'No valid entry found!'
                 });
             }

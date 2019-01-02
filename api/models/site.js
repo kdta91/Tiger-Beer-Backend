@@ -9,8 +9,7 @@ const siteSchema = mongoose.Schema({
     },
     geofenceLatLong: {
         type: String,
-        required: true,
-        unique: true
+        default: '(0,0)'
     },
     siteStartDate: {
         type: Date,

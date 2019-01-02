@@ -6,6 +6,7 @@ const SiteController = require('../controllers/sites');
 
 router.post('/', SiteController.create_site);
 router.get('/', SiteController.get_all_sites);
+router.get('/sitenow', SiteController.get_active_sites);
 router.get('/:siteId', SiteController.get_site);
 router.patch('/:siteId', SiteController.update_site);
 router.delete('/:siteId', SiteController.delete_site);

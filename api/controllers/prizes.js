@@ -8,7 +8,8 @@ exports.create_prize = (req, res, next) => {
         .exec()
         .then((prize) => {
             if (prize.length >= 1) {
-                return res.status(409).json({
+                return res.status(200).json({
+                    code: 'Exists',
                     message: 'Prize already exists!'
                 });
             } else {
@@ -23,6 +24,7 @@ exports.create_prize = (req, res, next) => {
                 prize.save()
                     .then((result) => {
                         res.status(201).json({
+                            code: 'Success',
                             message: 'Prize successfully created!'
                         });
                     })
@@ -42,7 +44,7 @@ exports.get_all_prizes = (req, res, next) => {
         .then((results) => {
             res.status(200).json({
                 count: results.length,
-                orders: results.map((result) => {
+                prizes: results.map((result) => {
                     return {
                         _id: result._id,
                         prizeType: result.prizeType,
@@ -76,7 +78,7 @@ exports.get_prize = (req, res, next) => {
             if (result) {
                 res.status(200).json(result);
             } else {
-                res.status(404).json({
+                res.status(200).json({
                     message: 'No valid entry found!'
                 });
             }
@@ -100,9 +102,12 @@ exports.update_prize = (req, res, next) => {
             _id: id
         }, {
             $set: updateData
+        }, {
+            runValidators: true
         })
         .exec()
         .then((result) => {
+            console.log(result);
             res.status(200).json({
                 message: 'Prize successfully updated!'
             });
@@ -123,7 +128,7 @@ exports.delete_prize = (req, res, next) => {
         .exec()
         .then((result) => {
             res.status(200).json({
-                message: 'Prize successfully removed!'
+                message: 'Prize successfully deleted!'
             });
         })
         .catch((error) => {
