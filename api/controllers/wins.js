@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Win = require('../models/win');
+const SitePrizeAllocation = require('../models/site-prize-allocation');
 
 exports.create_win = (req, res, next) => {
     const win = new Win({
@@ -12,6 +13,24 @@ exports.create_win = (req, res, next) => {
 
     win.save()
         .then((result) => {
+            return SitePrizeAllocation.findOneAndUpdate({
+                    siteId: req.body.siteId,
+                    prizeId: req.body.sitePrizeId
+                }, {
+                    $inc: {
+                        quantityLeft: -1
+                    }
+                })
+                .exec()
+                .then((allocation) => {
+                    return allocation;
+                })
+                .catch((error) => {
+                    return error;
+                });
+        })
+        .then((result) => {
+            console.log(result);
             res.status(201).json({
                 message: 'Win result successfully logged!'
             });
@@ -148,8 +167,7 @@ exports.get_latest_win = (req, res, next) => {
                 res.status(200).json({
                     prizeId: result.sitePrizeId.prizeType
                 });
-            }
-            else {
+            } else {
                 res.status(200).json({
                     prizeId: -1
                 });
