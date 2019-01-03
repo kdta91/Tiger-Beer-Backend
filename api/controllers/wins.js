@@ -30,7 +30,6 @@ exports.create_win = (req, res, next) => {
                 });
         })
         .then((result) => {
-            console.log(result);
             res.status(201).json({
                 message: 'Win result successfully logged!'
             });

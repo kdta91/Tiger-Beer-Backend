@@ -36,8 +36,6 @@ exports.get_win_result = (req, res, next) => {
             minRange = maxRange;
         }
 
-        // console.log(prizeResult);
-
         return prizeResult.filter((prize) => (luckyNumber >= prize.range.min && luckyNumber <= prize.range.max));
     };
 
@@ -103,80 +101,90 @@ exports.get_win_result = (req, res, next) => {
                     .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
                     .exec()
                     .then((foundWin) => {
-                        res.status(200).json({
-                            prizeId: foundWin.sitePrizeId.prizeType
-                        });
+                        if (foundWin) {
+                            return {
+                                prizeId: foundWin.sitePrizeId
+                            };
+                        } else {
+                            return null;
+                        }
                     })
                     .catch((error) => {
-                        res.status(500).json({
-                            error: error
-                        });
+                        throw error;
                     });
             }
         })
         .then((result) => {
-            return Prize.findById(result.prizeId)
-                .select('_id')
-                .exec()
-                .then((prize) => {
-                    return prize;
-                })
-                .catch((error) => {
-                    return error;
-                });
+            if (result) {
+                return Prize.findById(result.prizeId)
+                    .select('_id')
+                    .exec()
+                    .then((prize) => {
+                        return prize;
+                    })
+                    .catch((error) => {
+                        throw error;
+                    });
+            } else {
+                return null;
+            }
         })
         .then((prize) => {
-            const win = new Win({
-                _id: new mongoose.Types.ObjectId,
-                winSessionId: req.params.winSessionId,
-                siteId: req.params.siteId,
-                sitePrizeId: prize._id
-            });
+            if (prize) {
+                const win = new Win({
+                    _id: new mongoose.Types.ObjectId,
+                    winSessionId: req.params.winSessionId,
+                    siteId: req.params.siteId,
+                    sitePrizeId: prize._id
+                });
 
-            return Win.find({
-                    'winSessionId': req.params.winSessionId,
-                    'siteId': req.params.siteId
-                })
-                .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
-                .exec()
-                .then((won) => {
-                    if (won.length > 0) {
-                        return won[0];
-                    } else {
-                        return win.save()
-                            .then((saved) => {
-                                return SitePrizeAllocation.findOneAndUpdate({
-                                        siteId: saved.siteId,
-                                        prizeId: saved.sitePrizeId
-                                    }, {
-                                        $inc: {
-                                            quantityLeft: -1
-                                        }
-                                    })
-                                    .exec()
-                                    .then((sitePrizeAllocation) => {
-                                        return Win.findById(saved._id)
-                                            .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
-                                            .exec()
-                                            .then((found) => {
-                                                return found;
-                                            })
-                                            .catch((error) => {
-                                                return error;
-                                            })
-                                    })
-                                    .catch((error) => {
-                                        return error;
-                                    });
-                            })
-                            .catch((error) => {
-                                return error;
-                            });
-                    }
-                })
-                .catch((error) => {
-                    return error;
-                })
+                return Win.find({
+                        'winSessionId': req.params.winSessionId,
+                        'siteId': req.params.siteId
+                    })
+                    .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
+                    .exec()
+                    .then((won) => {
+                        if (won.length > 0) {
+                            return won[0];
+                        } else {
+                            return win.save()
+                                .then((saved) => {
+                                    return SitePrizeAllocation.findOneAndUpdate({
+                                            siteId: saved.siteId,
+                                            prizeId: saved.sitePrizeId
+                                        }, {
+                                            $inc: {
+                                                quantityLeft: -1
+                                            }
+                                        })
+                                        .exec()
+                                        .then((sitePrizeAllocation) => {
+                                            return Win.findById(saved._id)
+                                                .populate('siteId sitePrizeId', 'siteName prizeType prizeName')
+                                                .exec()
+                                                .then((found) => {
+                                                    return found;
+                                                })
+                                                .catch((error) => {
+                                                    throw error;
+                                                })
+                                        })
+                                        .catch((error) => {
+                                            throw error;
+                                        });
+                                })
+                                .catch((error) => {
+                                    throw error;
+                                });
+                        }
+                    })
+                    .catch((error) => {
+                        throw error;
+                    })
+            } else {
+                return null;
+            }
         })
         .then((result) => {
             if (result) {
@@ -185,8 +193,8 @@ exports.get_win_result = (req, res, next) => {
                 });
             } else {
                 res.status(200).json({
-                    message: 'Something went wrong. Please try again.'
-                })
+                    message: 'NoQuantity'
+                });
             }
         })
         .catch((error) => {

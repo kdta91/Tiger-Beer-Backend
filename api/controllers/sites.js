@@ -5,272 +5,288 @@ const SitePrizeAllocation = require('../models/site-prize-allocation');
 // exports.create_site = (req, res, next) => {
 //     let sites = [{
 //         "siteName": "Waterway Point",
-//         "siteStartDate": "4 January 2019 17:00",
-//         "siteEndDate": "4 January 2019 22:00"
+//         "siteStartDate": "4 January 2019 16:30",
+//         "siteEndDate": "4 January 2019 23:00"
 //     }, {
 //         "siteName": "Bugis Junction",
-//         "siteStartDate": "4 January 2019 09:00",
+//         "siteStartDate": "4 January 2019 16:30",
+//         "siteEndDate": "4 January 2019 23:00"
+//     }, {
+//         "siteName": "Suntec",
+//         "siteStartDate": "4 January 2019 15:30",
 //         "siteEndDate": "4 January 2019 22:00"
 //     }, {
 //         "siteName": "Great World City",
-//         "siteStartDate": "5 January 2019 10:00",
-//         "siteEndDate": "5 January 2019 15:00"
+//         "siteStartDate": "5 January 2019 09:30",
+//         "siteEndDate": "5 January 2019 16:00"
 //     }, {
 //         "siteName": "Elias Mall",
-//         "siteStartDate": "5 January 2019 09:00",
-//         "siteEndDate": "5 January 2019 14:00"
+//         "siteStartDate": "5 January 2019 08:30",
+//         "siteEndDate": "5 January 2019 15:00"
 //     }, {
 //         "siteName": "Clementi Mall",
-//         "siteStartDate": "5 January 2019 10:00",
-//         "siteEndDate": "5 January 2019 15:00"
+//         "siteStartDate": "5 January 2019 09:30",
+//         "siteEndDate": "5 January 2019 16:00"
 //     }, {
 //         "siteName": "Woodlands Mart",
-//         "siteStartDate": "5 January 2019 10:00",
-//         "siteEndDate": "5 January 2019 15:00"
+//         "siteStartDate": "5 January 2019 09:30",
+//         "siteEndDate": "5 January 2019 16:00"
 //     }, {
 //         "siteName": "Pioneer Mall",
-//         "siteStartDate": "5 January 2019 16:00",
-//         "siteEndDate": "5 January 2019 21:00"
+//         "siteStartDate": "5 January 2019 15:30",
+//         "siteEndDate": "5 January 2019 22:00"
 //     }, {
 //         "siteName": "Seletar Mall",
-//         "siteStartDate": "5 January 2019 16:00",
-//         "siteEndDate": "5 January 2019 21:00"
+//         "siteStartDate": "5 January 2019 15:30",
+//         "siteEndDate": "5 January 2019 22:00"
 //     }, {
 //         "siteName": "Junction 9",
-//         "siteStartDate": "5 January 2019 17:00",
-//         "siteEndDate": "5 January 2019 22:00"
+//         "siteStartDate": "5 January 2019 16:30",
+//         "siteEndDate": "5 January 2019 23:00"
 //     }, {
 //         "siteName": "Sembawang Shopping Center",
-//         "siteStartDate": "5 January 2019 09:00",
-//         "siteEndDate": "5 January 2019 22:00"
+//         "siteStartDate": "5 January 2019 16:30",
+//         "siteEndDate": "5 January 2019 23:00"
 //     }, {
 //         "siteName": "Woodlands 301",
-//         "siteStartDate": "6 January 2019 08:00",
-//         "siteEndDate": "6 January 2019 13:00"
-//     }, {
-//         "siteName": "Hougang Green",
-//         "siteStartDate": "6 January 2019 08:00",
-//         "siteEndDate": "6 January 2019 13:00"
-//     }, {
-//         "siteName": "Vista Point",
-//         "siteStartDate": "6 January 2019 10:00",
-//         "siteEndDate": "6 January 2019 15:00"
-//     }, {
-//         "siteName": "Yishun 3",
-//         "siteStartDate": "6 January 2019 09:00",
+//         "siteStartDate": "6 January 2019 07:30",
 //         "siteEndDate": "6 January 2019 14:00"
 //     }, {
+//         "siteName": "Hougang Green",
+//         "siteStartDate": "6 January 2019 07:30",
+//         "siteEndDate": "6 January 2019 14:00"
+//     }, {
+//         "siteName": "Vista Point",
+//         "siteStartDate": "6 January 2019 09:30",
+//         "siteEndDate": "6 January 2019 16:00"
+//     }, {
+//         "siteName": "Yishun 3",
+//         "siteStartDate": "6 January 2019 08:30",
+//         "siteEndDate": "6 January 2019 15:00"
+//     }, {
 //         "siteName": "Kallang Leisure Park",
-//         "siteStartDate": "6 January 2019 09:00",
-//         "siteEndDate": "6 January 2019 22:00"
+//         "siteStartDate": "6 January 2019 09:30",
+//         "siteEndDate": "6 January 2019 16:00"
 //     }, {
 //         "siteName": "Jurong Point Hypermart",
-//         "siteStartDate": "6 January 2019 16:00",
-//         "siteEndDate": "6 January 2019 21:00"
+//         "siteStartDate": "6 January 2019 15:30",
+//         "siteEndDate": "6 January 2019 22:00"
 //     }, {
 //         "siteName": "Northpoint City",
-//         "siteStartDate": "6 January 2019 17:00",
-//         "siteEndDate": "6 January 2019 22:00"
+//         "siteStartDate": "6 January 2019 16:30",
+//         "siteEndDate": "6 January 2019 23:00"
 //     }, {
 //         "siteName": "Tampines",
-//         "siteStartDate": "6 January 2019 17:00",
-//         "siteEndDate": "6 January 2019 22:00"
+//         "siteStartDate": "6 January 2019 16:30",
+//         "siteEndDate": "6 January 2019 23:00"
 //     }, {
-//         "siteName": "Holland Smkt",
-//         "siteStartDate": "6 January 2019 09:00",
+//         "siteName": "Hougang",
+//         "siteStartDate": "6 January 2019 00:00",
+//         "siteEndDate": "6 January 2019 24:00"
+//     }, {
+//         "siteName": "Causeway Point",
+//         "siteStartDate": "6 January 2019 15:30",
 //         "siteEndDate": "6 January 2019 22:00"
 //     }, {
 //         "siteName": "Compass One",
-//         "siteStartDate": "11 January 2019 17:00",
-//         "siteEndDate": "11 January 2019 22:00"
+//         "siteStartDate": "11 January 2019 16:30",
+//         "siteEndDate": "11 January 2019 23:00"
 //     }, {
 //         "siteName": "Kampong Ubi",
-//         "siteStartDate": "11 January 2019 17:00",
+//         "siteStartDate": "11 January 2019 16:30",
+//         "siteEndDate": "11 January 2019 23:00"
+//     }, {
+//         "siteName": "Holland Smkt",
+//         "siteStartDate": "11 January 2019 15:30",
 //         "siteEndDate": "11 January 2019 22:00"
 //     }, {
-//         "siteName": "Hougang",
-//         "siteStartDate": "11 January 2019 09:00",
+//         "siteName": "Woodlands 200",
+//         "siteStartDate": "11 January 2019 15:30",
+//         "siteEndDate": "11 January 2019 22:00"
+//     }, {
+//         "siteName": "Jurong Point",
+//         "siteStartDate": "11 January 2019 15:30",
 //         "siteEndDate": "11 January 2019 22:00"
 //     }, {
 //         "siteName": "Rivervale Mall",
-//         "siteStartDate": "12 January 2019 09:00",
-//         "siteEndDate": "12 January 2019 14:00"
+//         "siteStartDate": "12 January 2019 08:30",
+//         "siteEndDate": "12 January 2019 15:00"
 //     }, {
 //         "siteName": "Habitat by Honestbee",
-//         "siteStartDate": "12 January 2019 10:00",
-//         "siteEndDate": "12 January 2019 15:00"
+//         "siteStartDate": "12 January 2019 09:30",
+//         "siteEndDate": "12 January 2019 16:00"
 //     }, {
 //         "siteName": "Vivocity",
-//         "siteStartDate": "12 January 2019 10:00",
-//         "siteEndDate": "12 January 2019 15:00"
+//         "siteStartDate": "12 January 2019 09:30",
+//         "siteEndDate": "12 January 2019 16:00"
 //     }, {
 //         "siteName": "Serangoon B",
-//         "siteStartDate": "12 January 2019 09:00",
-//         "siteEndDate": "12 January 2019 14:00"
+//         "siteStartDate": "12 January 2019 08:30",
+//         "siteEndDate": "12 January 2019 15:00"
 //     }, {
 //         "siteName": "Jalan Tiga",
-//         "siteStartDate": "12 January 2019 09:00",
-//         "siteEndDate": "12 January 2019 14:00"
+//         "siteStartDate": "12 January 2019 08:30",
+//         "siteEndDate": "12 January 2019 15:00"
 //     }, {
 //         "siteName": "Ang Mo Kio Hub",
-//         "siteStartDate": "12 January 2019 17:00",
-//         "siteEndDate": "12 January 2019 22:00"
+//         "siteStartDate": "12 January 2019 16:30",
+//         "siteEndDate": "12 January 2019 23:00"
 //     }, {
 //         "siteName": "Jurong West 962",
-//         "siteStartDate": "12 January 2019 17:00",
-//         "siteEndDate": "12 January 2019 22:00"
+//         "siteStartDate": "12 January 2019 16:30",
+//         "siteEndDate": "12 January 2019 23:00"
 //     }, {
 //         "siteName": "IMM",
-//         "siteStartDate": "12 January 2019 17:00",
-//         "siteEndDate": "12 January 2019 22:00"
+//         "siteStartDate": "12 January 2019 16:30",
+//         "siteEndDate": "12 January 2019 23:00"
 //     }, {
 //         "siteName": "Tampines Mall",
-//         "siteStartDate": "12 January 2019 17:00",
-//         "siteEndDate": "12 January 2019 22:00"
+//         "siteStartDate": "12 January 2019 16:30",
+//         "siteEndDate": "12 January 2019 23:00"
 //     }, {
 //         "siteName": "Joo Seng",
-//         "siteStartDate": "12 January 2019 17:00",
-//         "siteEndDate": "12 January 2019 22:00"
+//         "siteStartDate": "12 January 2019 16:30",
+//         "siteEndDate": "12 January 2019 23:00"
 //     }, {
 //         "siteName": "Marine Parade",
-//         "siteStartDate": "13 January 2019 10:00",
-//         "siteEndDate": "13 January 2019 15:00"
+//         "siteStartDate": "13 January 2019 09:30",
+//         "siteEndDate": "13 January 2019 16:00"
 //     }, {
 //         "siteName": "Punggol 301",
-//         "siteStartDate": "13 January 2019 08:00",
-//         "siteEndDate": "13 January 2019 13:00"
+//         "siteStartDate": "13 January 2019 07:30",
+//         "siteEndDate": "13 January 2019 14:00"
 //     }, {
 //         "siteName": "Hyper Nex Mall",
-//         "siteStartDate": "13 January 2019 10:00",
+//         "siteStartDate": "13 January 2019 09:30",
+//         "siteEndDate": "13 January 2019 16:00"
+//     }, {
+//         "siteName": "Clementi A",
+//         "siteStartDate": "13 January 2019 08:30",
 //         "siteEndDate": "13 January 2019 15:00"
 //     }, {
-//         "siteName": "Jelita Smkt",
-//         "siteStartDate": "13 January 2019 09:00",
-//         "siteEndDate": "13 January 2019 14:00"
-//     }, {
 //         "siteName": "Hyper Sports Hub",
-//         "siteStartDate": "13 January 2019 09:00",
-//         "siteEndDate": "13 January 2019 14:00"
+//         "siteStartDate": "13 January 2019 08:30",
+//         "siteEndDate": "13 January 2019 15:00"
 //     }, {
 //         "siteName": "Geylang East",
-//         "siteStartDate": "13 January 2019 17:00",
-//         "siteEndDate": "13 January 2019 22:00"
+//         "siteStartDate": "13 January 2019 16:30",
+//         "siteEndDate": "13 January 2019 23:00"
 //     }, {
 //         "siteName": "Parkway",
-//         "siteStartDate": "13 January 2019 16:00",
-//         "siteEndDate": "13 January 2019 21:00"
+//         "siteStartDate": "13 January 2019 15:30",
+//         "siteEndDate": "13 January 2019 22:00"
 //     }, {
 //         "siteName": "Yishun 845",
-//         "siteStartDate": "13 January 2019 17:00",
-//         "siteEndDate": "13 January 2019 22:00"
+//         "siteStartDate": "13 January 2019 16:30",
+//         "siteEndDate": "13 January 2019 23:00"
 //     }, {
 //         "siteName": "Chin Swee",
-//         "siteStartDate": "13 January 2019 17:00",
-//         "siteEndDate": "13 January 2019 22:00"
+//         "siteStartDate": "13 January 2019 16:30",
+//         "siteEndDate": "13 January 2019 23:00"
 //     }, {
 //         "siteName": "Junction 10",
-//         "siteStartDate": "13 January 2019 17:00",
-//         "siteEndDate": "13 January 2019 22:00"
+//         "siteStartDate": "13 January 2019 16:30",
+//         "siteEndDate": "13 January 2019 23:00"
 //     }, {
 //         "siteName": "Clementi 720",
-//         "siteStartDate": "18 January 2019 17:00",
-//         "siteEndDate": "18 January 2019 22:00"
+//         "siteStartDate": "18 January 2019 16:30",
+//         "siteEndDate": "18 January 2019 23:00"
 //     }, {
 //         "siteName": "Tanjong Pagar",
-//         "siteStartDate": "18 January 2019 17:00",
-//         "siteEndDate": "18 January 2019 22:00"
+//         "siteStartDate": "18 January 2019 16:30",
+//         "siteEndDate": "18 January 2019 23:00"
 //     }, {
 //         "siteName": "Toa Payoh HDB Hub",
-//         "siteStartDate": "18 January 2019 17:00",
-//         "siteEndDate": "18 January 2019 22:00"
+//         "siteStartDate": "18 January 2019 16:30",
+//         "siteEndDate": "18 January 2019 23:00"
 //     }, {
 //         "siteName": "Hao Mart",
-//         "siteStartDate": "18 January 2019 17:00",
-//         "siteEndDate": "18 January 2019 22:00"
+//         "siteStartDate": "18 January 2019 16:30",
+//         "siteEndDate": "18 January 2019 23:00"
 //     }, {
 //         "siteName": "Eastpoint",
-//         "siteStartDate": "18 January 2019 16:00",
-//         "siteEndDate": "18 January 2019 21:00"
+//         "siteStartDate": "18 January 2019 15:30",
+//         "siteEndDate": "18 January 2019 22:00"
 //     }, {
 //         "siteName": "Sunplaza",
-//         "siteStartDate": "19 January 2019 09:00",
-//         "siteEndDate": "19 January 2019 14:00"
+//         "siteStartDate": "19 January 2019 08:30",
+//         "siteEndDate": "19 January 2019 15:00"
 //     }, {
 //         "siteName": "Tampines Central",
-//         "siteStartDate": "19 January 2019 09:00",
-//         "siteEndDate": "19 January 2019 14:00"
+//         "siteStartDate": "19 January 2019 08:30",
+//         "siteEndDate": "19 January 2019 15:00"
 //     }, {
 //         "siteName": "Bedok 739",
-//         "siteStartDate": "19 January 2019 09:00",
-//         "siteEndDate": "19 January 2019 14:00"
+//         "siteStartDate": "19 January 2019 08:30",
+//         "siteEndDate": "19 January 2019 15:00"
 //     }, {
 //         "siteName": "Kallang Bahru",
-//         "siteStartDate": "19 January 2019 10:00",
-//         "siteEndDate": "19 January 2019 15:00"
+//         "siteStartDate": "19 January 2019 09:30",
+//         "siteEndDate": "19 January 2019 16:00"
 //     }, {
 //         "siteName": "Northpoint Smkt",
-//         "siteStartDate": "19 January 2019 10:00",
-//         "siteEndDate": "19 January 2019 15:00"
+//         "siteStartDate": "19 January 2019 09:30",
+//         "siteEndDate": "19 January 2019 16:00"
 //     }, {
 //         "siteName": "Jalan Bahar",
-//         "siteStartDate": "19 January 2019 17:00",
-//         "siteEndDate": "19 January 2019 22:00"
+//         "siteStartDate": "19 January 2019 16:30",
+//         "siteEndDate": "19 January 2019 23:00"
 //     }, {
 //         "siteName": "Hillion Mall",
-//         "siteStartDate": "19 January 2019 16:00",
-//         "siteEndDate": "19 January 2019 21:00"
+//         "siteStartDate": "19 January 2019 15:30",
+//         "siteEndDate": "19 January 2019 22:00"
 //     }, {
 //         "siteName": "Jurong Superbowl",
-//         "siteStartDate": "19 January 2019 17:00",
-//         "siteEndDate": "19 January 2019 22:00"
+//         "siteStartDate": "19 January 2019 16:30",
+//         "siteEndDate": "19 January 2019 23:00"
 //     }, {
 //         "siteName": "Bedok 209",
-//         "siteStartDate": "19 January 2019 17:00",
-//         "siteEndDate": "19 January 2019 22:00"
+//         "siteStartDate": "19 January 2019 16:30",
+//         "siteEndDate": "19 January 2019 23:00"
 //     }, {
 //         "siteName": "Hyper JEM",
-//         "siteStartDate": "19 January 2019 17:00",
-//         "siteEndDate": "19 January 2019 22:00"
+//         "siteStartDate": "19 January 2019 16:30",
+//         "siteEndDate": "19 January 2019 23:00"
 //     }, {
 //         "siteName": "Bedok 539",
-//         "siteStartDate": "20 January 2019 08:00",
-//         "siteEndDate": "20 January 2019 13:00"
+//         "siteStartDate": "20 January 2019 07:30",
+//         "siteEndDate": "20 January 2019 14:00"
 //     }, {
 //         "siteName": "Loyang Point",
-//         "siteStartDate": "20 January 2019 10:00",
-//         "siteEndDate": "20 January 2019 15:00"
+//         "siteStartDate": "20 January 2019 09:30",
+//         "siteEndDate": "20 January 2019 16:00"
 //     }, {
 //         "siteName": "Toa Payoh A",
-//         "siteStartDate": "20 January 2019 10:00",
-//         "siteEndDate": "20 January 2019 15:00"
+//         "siteStartDate": "20 January 2019 09:30",
+//         "siteEndDate": "20 January 2019 16:00"
 //     }, {
 //         "siteName": "Hougang One",
-//         "siteStartDate": "20 January 2019 09:00",
-//         "siteEndDate": "20 January 2019 14:00"
+//         "siteStartDate": "20 January 2019 08:30",
+//         "siteEndDate": "20 January 2019 15:00"
 //     }, {
 //         "siteName": "Ang Mo - Ang Mo Kio",
-//         "siteStartDate": "20 January 2019 09:00",
-//         "siteEndDate": "20 January 2019 14:00"
+//         "siteStartDate": "20 January 2019 08:30",
+//         "siteEndDate": "20 January 2019 15:00"
 //     }, {
 //         "siteName": "Choa Chu Kang",
-//         "siteStartDate": "20 January 2019 16:00",
-//         "siteEndDate": "20 January 2019 21:00"
+//         "siteStartDate": "20 January 2019 15:30",
+//         "siteEndDate": "20 January 2019 22:00"
 //     }, {
 //         "siteName": "Bukit Panjang Plaza",
-//         "siteStartDate": "20 January 2019 16:00",
-//         "siteEndDate": "20 January 2019 21:00"
+//         "siteStartDate": "20 January 2019 15:30",
+//         "siteEndDate": "20 January 2019 22:00"
 //     }, {
 //         "siteName": "Serangoon 19",
-//         "siteStartDate": "20 January 2019 17:00",
-//         "siteEndDate": "20 January 2019 22:00"
+//         "siteStartDate": "20 January 2019 16:30",
+//         "siteEndDate": "20 January 2019 23:00"
 //     }, {
 //         "siteName": "U - Star - Sumang",
-//         "siteStartDate": "20 January 2019 17:00",
-//         "siteEndDate": "20 January 2019 22:00"
+//         "siteStartDate": "20 January 2019 16:30",
+//         "siteEndDate": "20 January 2019 23:00"
 //     }, {
 //         "siteName": "Bedok North A",
-//         "siteStartDate": "20 January 2019 16:00",
-//         "siteEndDate": "20 January 2019 21:00"
+//         "siteStartDate": "20 January 2019 15:30",
+//         "siteEndDate": "20 January 2019 22:00"
 //     }];
 
 //     sites.forEach((item, i) => {
@@ -460,32 +476,36 @@ exports.get_site_status = (req, res, next) => {
         .exec()
         .then((result) => {
             if (result) {
-                console.log(result);
+                // console.log(result);
                 SitePrizeAllocation.find({
-                    siteId: mongoose.Types.ObjectId(id)
-                })
-                .select('_id prizeId siteId quantityAllocated quantityLeft')
-                .exec()
-                .then((prizeAllocResult) => {
-                    let totalQtyLeft = prizeAllocResult.reduce(function (a, b) {
-                        return a + b.quantityLeft;
-                    }, 0);
+                        siteId: mongoose.Types.ObjectId(id)
+                    })
+                    .select('_id prizeId siteId quantityAllocated quantityLeft')
+                    .exec()
+                    .then((prizeAllocResult) => {
+                        let totalQtyLeft = prizeAllocResult.reduce(function (a, b) {
+                            return a + b.quantityLeft;
+                        }, 0);
 
-                    if (dateTime < result.siteStartDate || dateTime >= result.siteEndDate && totalQtyLeft <= 0) {
-                        res.status(200).json({
-                            message: 'NoQuantity'
+                        if (dateTime < result.siteStartDate || dateTime >= result.siteEndDate) {
+                            res.status(200).json({
+                                message: 'InvalidSite'
+                            });
+                        } else if (totalQtyLeft <= 0) {
+                            res.status(200).json({
+                                message: 'NoQuantity'
+                            });
+                        } else {
+                            res.status(200).json({
+                                message: 'Success'
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        res.status(500).json({
+                            error: error
                         });
-                    } else {
-                        res.status(200).json({
-                            message: 'Success'
-                        });
-                    }
-                })
-                .catch((error) => {
-                    res.status(500).json({
-                        error: error
                     });
-                });
             } else {
                 res.status(200).json({
                     message: 'InvalidSite'
@@ -503,18 +523,28 @@ exports.get_active_sites = (req, res, next) => {
     const dateTime = new Date();
 
     Site.find({
-        siteStartDate: {
-            $lte: dateTime
-        },
-        siteEndDate: {
-            $gte: dateTime
-        }
-    })
+            siteStartDate: {
+                $lte: dateTime
+            },
+            siteEndDate: {
+                $gte: dateTime
+            }
+        })
         .select('_id siteName geofenceLatLong siteStartDate siteEndDate')
         .exec()
         .then((result) => {
             if (result) {
-                res.status(200).json(result);
+                res.status(200).json({
+                    count: result.length,
+                    sites: result.map((site) => {
+                        return {
+                            siteID: site._id,
+                            siteName: site.siteName,
+                            siteStartDate: site.siteStartDate,
+                            siteEndDate: site.siteEndDate,
+                        }
+                    })
+                });
             } else {
                 res.status(200).json({
                     message: 'InvalidSite'
