@@ -8,6 +8,8 @@ router.post('/', SitePrizeAllocationController.create_site_prize_allocation);
 router.get('/', SitePrizeAllocationController.get_all_site_prize_allocation);
 router.get('/:sitePrizeAllocationId', SitePrizeAllocationController.get_site_prize_allocation);
 router.get('/site/:siteId', SitePrizeAllocationController.get_site_prize_allocation_by_site);
+router.get('/prev/:sitePrizeAllocationId', SitePrizeAllocationController.get_previous_site_prize_allocation);
+router.get('/next/:sitePrizeAllocationId', SitePrizeAllocationController.get_next_site_prize_allocation);
 router.patch('/:sitePrizeAllocationId', SitePrizeAllocationController.update_site_prize_allocation);
 router.delete('/:sitePrizeAllocationId', SitePrizeAllocationController.delete_site_prize_allocation);
 

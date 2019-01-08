@@ -6185,6 +6185,66 @@ exports.get_site_prize_allocation = (req, res, next) => {
         });
 };
 
+exports.get_previous_site_prize_allocation = (req, res, next) => {
+    const id = req.params.sitePrizeAllocationId;
+
+    SitePrizeAllocation.findOne({
+            _id: {
+                $lt: id
+            }
+        })
+        .select('_id prizeId siteId rank quantityAllocated quantityLeft odds createdAt updatedAt')
+        .populate('prizeId siteId', 'prizeType prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
+        .sort({
+            _id: -1
+        })
+        .exec()
+        .then((result) => {
+            if (result) {
+                res.status(200).json(result);
+            } else {
+                res.status(200).json({
+                    message: 'No valid entry found!'
+                });
+            }
+        })
+        .catch((error) => {
+            res.status(500).json({
+                error: error
+            });
+        });
+};
+
+exports.get_next_site_prize_allocation = (req, res, next) => {
+    const id = req.params.sitePrizeAllocationId;
+
+    SitePrizeAllocation.findOne({
+            _id: {
+                $gt: id
+            }
+        })
+        .select('_id prizeId siteId rank quantityAllocated quantityLeft odds createdAt updatedAt')
+        .populate('prizeId siteId', 'prizeType prizeName prizeImage prizeFrame siteName geofenceLatlong siteStartDate siteEndDate')
+        .sort({
+            _id: 1
+        })
+        .exec()
+        .then((result) => {
+            if (result) {
+                res.status(200).json(result);
+            } else {
+                res.status(200).json({
+                    message: 'No valid entry found!'
+                });
+            }
+        })
+        .catch((error) => {
+            res.status(500).json({
+                error: error
+            });
+        });
+};
+
 exports.get_site_prize_allocation_by_site = (req, res, next) => {
     const siteId = req.params.siteId;
 
